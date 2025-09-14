@@ -1,0 +1,52 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: "accounts"
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8080/realms/lidaa/protocol/openid-connect/certs
+  profiles:
+    active: "prod"
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password: ''
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  config:
+    import: "optional:configserver:http://localhost:8071/"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+build:
+  version: 1.0
+
+springdoc:
+  show-actuator: false
+  oAuthFlow:
+    authorizationUrl: http://localhost:8080/realms/lidaa/protocol/openid-connect/auth
+    tokenUrl: http://localhost:8080/realms/lidaa/protocol/openid-connect/token
+  swagger-ui:
+    display-request-duration: true
+    oauth:
+      clientId: lidaa
+      clientSecret: J50SnElpPHd6xt0ZaWHgipqo19Lvcs7C
+
+jwt-mapping:
+  identityProvider: keycloak
+  authorityPrefix: ROLE_
+  principalClaim: preferred_username
