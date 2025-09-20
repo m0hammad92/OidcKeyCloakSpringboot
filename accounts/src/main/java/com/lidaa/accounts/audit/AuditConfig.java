@@ -40,7 +40,7 @@ public class AuditConfig {
     /**
      * The logging level.
      */
-    @Value("${logging.level.com.deloitte}")
+    @Value("${logging.level.com.lidaa.accounts}")
     private String loggingLevel;
 
     /**
@@ -119,6 +119,7 @@ public class AuditConfig {
     void log(final String message) {
         final LogLevel level = LogLevel.valueOf(loggingLevel);
         switch (level) {
+            case INFO -> log.info(message);
             case DEBUG -> log.debug(message);
             case TRACE -> log.trace(message);
             case WARN -> log.warn(message);

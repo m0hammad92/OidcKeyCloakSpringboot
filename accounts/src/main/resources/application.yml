@@ -50,3 +50,7 @@ jwt-mapping:
   identityProvider: keycloak
   authorityPrefix: ROLE_
   principalClaim: preferred_username
+
+logging:
+  level:
+    com.lidaa.accounts: INFO
