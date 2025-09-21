@@ -23,8 +23,8 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class AccountsServiceImpl  implements IAccountsService {
 
-    private AccountsRepository accountsRepository;
-    private CustomerRepository customerRepository;
+    private final AccountsRepository accountsRepository;
+    private final CustomerRepository customerRepository;
 
     private final AccountsMapper accountsMapper;
     /**
