@@ -33,6 +33,9 @@ public class GrantedAuthorityConfiguration {
         if(StringUtils.hasText(mappingProperties.getAuthorityPrefix())){
             converter.setAuthorityPrefix(mappingProperties.getAuthorityPrefix().trim());
         }
+        if(StringUtils.hasText(mappingProperties.getPrincipalClaim())){
+            converter.setAuthoritiesClaimName(mappingProperties.getPrincipalClaim().trim());
+        }
         return  converter;
     }
 
