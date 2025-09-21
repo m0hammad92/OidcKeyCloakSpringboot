@@ -13,18 +13,20 @@ import com.lidaa.accounts.repository.AccountsRepository;
 import com.lidaa.accounts.repository.CustomerRepository;
 import com.lidaa.accounts.service.IAccountsService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.Random;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AccountsServiceImpl  implements IAccountsService {
 
-    private AccountsRepository accountsRepository;
-    private CustomerRepository customerRepository;
+    private final AccountsRepository accountsRepository;
+    private final CustomerRepository customerRepository;
 
+    private final AccountsMapper accountsMapper;
     /**
      * @param customerDto - CustomerDto Object
      */
@@ -68,7 +70,7 @@ public class AccountsServiceImpl  implements IAccountsService {
                 () -> new ResourceNotFoundException("Account", "customerId", customer.getCustomerId().toString())
         );
         CustomerDto customerDto = CustomerMapper.mapToCustomerDto(customer, new CustomerDto());
-        customerDto.setAccountsDto(AccountsMapper.mapToAccountsDto(accounts, new AccountsDto()));
+        customerDto.setAccountsDto(accountsMapper.mapToAccountsDto(accounts));
         return customerDto;
     }
 
@@ -84,7 +86,7 @@ public class AccountsServiceImpl  implements IAccountsService {
             Accounts accounts = accountsRepository.findById(accountsDto.getAccountNumber()).orElseThrow(
                     () -> new ResourceNotFoundException("Account", "AccountNumber", accountsDto.getAccountNumber().toString())
             );
-            AccountsMapper.mapToAccounts(accountsDto, accounts);
+            accountsMapper.mapToAccounts(accountsDto, accounts);
             accounts = accountsRepository.save(accounts);
 
             Long customerId = accounts.getCustomerId();

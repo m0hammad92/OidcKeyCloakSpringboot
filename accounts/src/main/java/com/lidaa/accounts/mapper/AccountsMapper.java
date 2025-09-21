@@ -2,21 +2,14 @@ package com.lidaa.accounts.mapper;
 
 import com.lidaa.accounts.dto.AccountsDto;
 import com.lidaa.accounts.entity.Accounts;
+import org.mapstruct.Mapper;
+import org.mapstruct.MappingTarget;
 
-public class AccountsMapper {
+@Mapper(componentModel = "spring")
+public interface AccountsMapper {
 
-    public static AccountsDto mapToAccountsDto(Accounts accounts, AccountsDto accountsDto) {
-        accountsDto.setAccountNumber(accounts.getAccountNumber());
-        accountsDto.setAccountType(accounts.getAccountType());
-        accountsDto.setBranchAddress(accounts.getBranchAddress());
-        return accountsDto;
-    }
+    public  AccountsDto mapToAccountsDto(Accounts accounts) ;
 
-    public static Accounts mapToAccounts(AccountsDto accountsDto, Accounts accounts) {
-        accounts.setAccountNumber(accountsDto.getAccountNumber());
-        accounts.setAccountType(accountsDto.getAccountType());
-        accounts.setBranchAddress(accountsDto.getBranchAddress());
-        return accounts;
-    }
+    public  Accounts mapToAccounts(AccountsDto accountsDto, @MappingTarget Accounts accounts);
 
 }

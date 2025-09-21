@@ -38,6 +38,7 @@ public class KeycloakGrantedAuthorityConverter implements Converter<Jwt, Collect
             } else {
                 simpleGrantedAuthority = new SimpleGrantedAuthority("+x");
             }
+
             return simpleGrantedAuthority;
         }).collect(Collectors.toSet());
     }
